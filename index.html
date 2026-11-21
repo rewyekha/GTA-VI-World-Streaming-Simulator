@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d12">
+  <title>Open-World Streaming Engine</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="refinement.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark"><span></span><span></span><span></span></div><div><div class="eyebrow">NIGHT SIGNAL <i></i> FIELD TEST 01</div><h1>OPEN-WORLD <b>STREAMING ENGINE</b></h1></div></div>
+      <div class="top-right"><div class="live"><span class="pulse"></span><span id="runState">ENGINE ONLINE</span></div><div class="session mono">SESSION <b>WS-10K-042</b></div><button id="resetBtn" class="icon-btn" title="Reset simulation">↻ <span>RESET</span></button></div>
+    </header>
+    <main>
+      <section class="hero-line"><div><span class="kicker">A GTA VI-INSPIRED TECHNICAL SIMULATION</span><span class="disclaimer">Independent educational project · Not affiliated with Rockstar Games · Does not represent GTA VI internal implementation</span></div><div class="world-tag"><span class="world-dot"></span>VICE COUNTY <span class="divider">/</span> <span id="clock">00:00:00</span></div></section>
+      <section class="workspace">
+        <div class="map-panel panel">
+          <div class="panel-head map-head"><div><div class="panel-title"><span class="title-icon">⌖</span> LIVE WORLD VIEW <span class="small-tag">COASTAL GRID</span></div><div class="panel-sub">100 × 100 spatial grid <span class="sep">·</span> 10,000 addressable chunks</div></div><div class="map-actions"><span class="compass"><span>N</span><i>▲</i></span><button id="gridToggle" class="toggle active">GRID <span class="switch"></span></button><button id="lodToggle" class="toggle active">LOD <span class="switch"></span></button></div></div>
+          <div class="canvas-wrap"><canvas id="world" aria-label="Procedural streamed city map"></canvas><div class="map-hud hud-tl"><span class="hud-label">PLAYER POSITION</span><b id="coordHud">X 50 · Y 50</b></div><div class="map-hud hud-tr"><span class="hud-label">CAMERA</span><b>SMOOTH FOLLOW <i class="green-dot"></i></b></div><div class="map-hud hud-bl"><span class="hud-label">STREAM RADIUS</span><b>3 CHUNKS <span class="green-dot"></span></b></div><div class="minimap"><div class="mini-label">PREDICTION VECTOR</div><canvas id="mini" width="112" height="72"></canvas></div><div class="toast" id="toast"></div></div>
+          <div class="legend"><span><i class="swatch current"></i>ACTIVE</span><span><i class="swatch loading"></i>LOADING</span><span><i class="swatch prefetched"></i>PREFETCHED</span><span><i class="swatch evicted"></i>EVICTED</span><span class="legend-right"><i class="swatch near"></i>NEAR LOD <i class="swatch medium"></i>MEDIUM <i class="swatch far"></i>FAR</span></div>
+          <div class="map-footer"><span><i class="green-dot"></i> SEAMLESS STREAMING ACTIVE</span><span class="mono">UNLOADED <b id="unloaded">10,000</b> <span class="sep">·</span> EVICTED <b id="evictedCount">0</b> <span class="sep">·</span> SEED 0x7A31C9</span></div>
+        </div>
+        <aside class="side-panel">
+          <div class="panel metrics-panel"><div class="panel-head"><div><div class="panel-title">STREAMING TELEMETRY</div><div class="panel-sub">Real-time engine observability</div></div><span class="metric-indicator"><i></i> LIVE</span></div>
+            <div class="metric-grid"><div class="metric"><span>RESIDENT CHUNKS</span><b id="loaded">—</b><small>of 10,000 total</small></div><div class="metric"><span>PREFETCH QUEUE</span><b id="prefetched">—</b><small>ahead of velocity</small></div><div class="metric"><span>CACHE HIT RATE</span><b id="hitRate">—</b><small><em id="hits">0</em> hits · <em id="misses">0</em> misses</small></div><div class="metric"><span>MEMORY FOOTPRINT</span><b><i id="memory">—</i><small class="unit"> MB</small></b><small><span id="budgetLabel">128</span> MB budget</small></div></div>
+            <div class="memory"><div class="memory-top"><span>MEMORY PRESSURE</span><b id="memoryPct">0%</b></div><div class="meter"><i id="memoryBar"></i><span></span></div></div>
+            <div class="stat-row"><div><span>AVG LOAD LATENCY</span><b id="latency">— <small>ms</small></b></div><div><span>RENDER RATE</span><b><i id="fps">60</i> <small>FPS</small></b></div><div><span>FRAME TIME</span><b><i id="frameTime">16.7</i> <small>ms</small></b></div></div>
+          </div>
+          <div class="panel player-panel"><div class="panel-head"><div><div class="panel-title">PLAYER & WORLD</div><div class="panel-sub">Velocity-aware traversal</div></div><span class="vehicle">◈ &nbsp;ON FOOT</span></div><div class="player-stats"><div><span>COORDINATES</span><b id="coords">50.00, 50.00</b></div><div><span>VELOCITY</span><b><i id="speed">0</i><small> m/s</small></b></div><div><span>HEADING</span><b id="heading">NORTH</b></div></div><div class="sliders"><label><span>TRAVEL SPEED</span><b><i id="speedValue">1.0</i>×</b></label><input id="speedSlider" type="range" min="0.5" max="3" step="0.1" value="1"><label><span>MEMORY BUDGET</span><b><i id="budgetValue">128</i> MB</b></label><input id="budgetSlider" type="range" min="32" max="256" step="16" value="128"></div></div>
+          <div class="panel lod-panel"><div class="panel-head"><div><div class="panel-title">LEVEL OF DETAIL</div><div class="panel-sub">Adaptive geometry by distance</div></div><span class="render-count"><b id="objects">—</b> OBJECTS</span></div><div class="lod-bars"><div><span><i class="lod-dot near"></i>NEAR</span><b id="nearCount">—</b><div class="bar"><i id="nearBar"></i></div></div><div><span><i class="lod-dot med"></i>MEDIUM</span><b id="medCount">—</b><div class="bar"><i id="medBar"></i></div></div><div><span><i class="lod-dot far"></i>FAR</span><b id="farCount">—</b><div class="bar"><i id="farBar"></i></div></div></div></div>
+          <div class="panel controls-panel"><div class="panel-head"><div><div class="panel-title">SIMULATION CONTROLS</div><div class="panel-sub">WASD / arrow keys to navigate</div></div><kbd>?</kbd></div><div class="buttons"><button id="playBtn" class="primary"><span id="playIcon">Ⅱ</span><span id="playText">PAUSE ENGINE</span></button><button id="demoBtn" class="secondary"><span>▷</span> GUIDED DEMO</button></div><div class="control-toggles"><button id="prefetchToggle" class="control-chip selected"><i>✦</i> PREDICTIVE PREFETCH <span class="on">ON</span></button><button id="logToggle" class="control-chip selected"><i>≋</i> EVENT STREAM <span class="on">ON</span></button></div></div>
+        </aside>
+      </section>
+      <section class="bottom-grid"><div class="panel event-panel" id="eventPanel"><div class="panel-head"><div><div class="panel-title">EVENT STREAM <span class="small-tag">LIVE</span></div><div class="panel-sub">Chunk lifecycle and cache activity</div></div><button id="clearLog" class="clear-btn">CLEAR LOG</button></div><div id="log" class="log mono" aria-live="polite"></div></div><div class="panel architecture-panel"><div class="panel-head"><div><div class="panel-title">STREAMING PIPELINE</div><div class="panel-sub">Demand driven · velocity aware · budget bounded</div></div></div><div class="pipeline"><div class="pipe-step"><i>01</i><b>SPATIAL<br>PARTITION</b><span>100 × 100 grid</span></div><div class="pipe-arrow">›</div><div class="pipe-step"><i>02</i><b>DEMAND<br>STREAM</b><span>Async chunk load</span></div><div class="pipe-arrow">›</div><div class="pipe-step active-step"><i>03</i><b>PREDICTIVE<br>PREFETCH</b><span>Velocity vector</span></div><div class="pipe-arrow">›</div><div class="pipe-step"><i>04</i><b>LRU<br>EVICTION</b><span>Hard memory cap</span></div><div class="pipe-arrow">›</div><div class="pipe-step"><i>05</i><b>ADAPTIVE<br>LOD</b><span>Distance based</span></div></div></div></section>
+      <footer><span>OPEN-WORLD STREAMING ENGINE <i>·</i> TECHNICAL DEMONSTRATION</span><span class="specs">DETERMINISTIC WORLD <i>·</i> ORIGINAL PROCEDURAL GRAPHICS <i>·</i> CANVAS 2D</span><span class="signature">Made by <b>Reyas Khan</b></span></footer>
+    </main>
+    <div class="closing" id="closing"><div class="closing-box"><div class="brand-mark large"><span></span><span></span><span></span></div><div class="eyebrow">NIGHT SIGNAL <i></i> FIELD TEST 01</div><h2>Intelligent resource management<br>is the foundation of <em>scalable systems.</em></h2><p>10,000 world chunks · Predictive streaming · LRU memory control</p><button id="replayBtn" class="primary">↻ &nbsp; REPLAY DEMONSTRATION</button></div></div>
+    <div id="toastCenter" class="toast-center"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

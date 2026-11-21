@@ -1,0 +1,108 @@
+:root {
+  --bg: #0d171b;
+  --panel: #142126;
+  --panel2: #19292e;
+  --line: #293a3d;
+  --muted: #899896;
+  --text: #e6e4d9;
+  --green: #d7b873;
+  --mint: #7db9a5;
+  --blue: #78afb3;
+  --amber: #d99b61;
+  --red: #c77c69;
+  --mono: 'SFMono-Regular', Menlo, Consolas, monospace;
+  --sans: 'Avenir Next', 'Helvetica Neue', -apple-system, sans-serif;
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 42% 12%, rgba(51, 82, 76, .18), transparent 48%),
+    linear-gradient(90deg, rgba(184, 201, 179, .018) 1px, transparent 1px),
+    linear-gradient(rgba(184, 201, 179, .018) 1px, transparent 1px);
+}
+
+.panel { border-radius: 12px; border-color: #2a3a3d; }
+.topbar { border-color: #29383a; }
+.brand-mark { border-radius: 12px; background: #1a2a2c; border-color: #4b625d; }
+.brand-mark span { background: var(--green); box-shadow: 0 0 8px #d7b87336; }
+.eyebrow { color: #9aaba4; }
+.eyebrow i { background: var(--amber); }
+.kicker,.title-icon,.active-step>i { color: var(--amber); }
+.live,.world-tag { color: #c4d0c6; }
+.pulse { background: var(--mint); box-shadow: 0 0 8px #7db9a540; }
+.green-dot,.world-dot { background: var(--mint); box-shadow: 0 0 7px #7db9a54d; }
+
+.panel-head { border-color: #29383a; }
+.panel-title { color: #e4e0d3; letter-spacing: .075em; }
+.panel-sub { color: #8a9a96; }
+.small-tag,.vehicle,.compass,.controls-panel kbd {
+  border-radius: 999px;
+  border-color: #394c49;
+  color: #a5b6ac;
+}
+.small-tag { padding: 3px 8px; }
+.divider,.sep { color: #6b7c78; }
+
+.icon-btn,.clear-btn { border-radius: 999px; border-color: #40504d; }
+.icon-btn { padding: 8px 13px; }
+.toggle { color: #aab7b0; }
+.switch { border-radius: 99px; }
+.switch:after { border-radius: 99px; }
+.toggle.active .switch { background: #59674c; }
+.toggle.active .switch:after { background: #e5c97d; box-shadow: 0 0 6px #e5c97d4a; }
+
+.metric-indicator { border: 1px solid #355047; padding: 4px 8px; border-radius: 999px; }
+.metric-indicator i { background: var(--mint); }
+.metric:nth-child(2)>b { color: #a3c9c2; }
+.metric:nth-child(3)>b { color: #d7b873; }
+.metric>b { color: #ebe8dc; }
+.meter { border-radius: 99px; }
+.meter i { background: linear-gradient(90deg, #719f91, #d7b873); }
+.vehicle { background: #1a2929; }
+
+.primary,.secondary {
+  border-radius: 999px;
+  letter-spacing: .035em;
+}
+.primary { background: #d7b873; color: #20261f; }
+.primary:hover { background: #e1c782; }
+.secondary { background: #1b2a2b; color: #d5d7c9; border-color: #53635a; }
+.control-chip { border-radius: 999px; border-color: #374845; background: #182629; }
+.control-chip i { color: #d8b873; }
+.control-chip .on { color: #8fc0a9; }
+.control-chip:not(.selected) .on { color: #85928b; }
+.sliders input { background: #344440; border-radius: 99px; }
+.sliders input::-webkit-slider-thumb { background: #dec27a; box-shadow: 0 0 6px #d7b87345; }
+
+.legend { border-color: #29383a; color: #a1aea7; }
+.swatch { border-radius: 99px; }
+.map-footer { border-color: #29383a; color: #879792; }
+.map-footer .signature { color: #9ca9a1; letter-spacing: .12em; }
+.signature b { color: #e0c27a; font-weight: 500; }
+.signature:before { content: ''; display: inline-block; width: 16px; height: 1px; background: #bd9d5e; vertical-align: middle; margin-right: 8px; opacity: .75; }
+footer { align-items: center; color: #778781; letter-spacing: .07em; }
+footer .signature { color: #aab4a9; font-family: var(--sans); font-size: 8px; letter-spacing: .07em; }
+footer .signature b { color: #e0c27a; font-weight: 500; }
+footer .specs { color: #72827d; }
+
+.map-hud b { color: #ebe7d9; }
+.hud-tr b { color: #c0cec4; }
+.minimap { border-radius: 10px; background: rgba(13, 23, 27, .9); border-color: #40514e; }
+.toast,.toast-center { border-radius: 999px; background: #1e302b; border-color: #637759; color: #e2d4a6; }
+.toast-center { border-radius: 999px; }
+.pipeline { border-radius: 10px; }
+.active-step:before { border-radius: 11px; border-color: #6a6447; background: #d7b8730b; }
+.closing-box { border-radius: 22px; border-color: #4a5b50; background: #111d20f2; }
+.closing-box button { border-radius: 999px; }
+.closing-box h2 em { color: #dfbe73; }
+.closing-box p { color: #a1aea7; }
+
+@media (min-width: 761px) {
+  footer .signature { margin-left: auto; padding-left: 16px; white-space: nowrap; }
+}
+@media (max-width: 760px) {
+  footer .specs { display: none; }
+  footer .signature { display: inline !important; margin-left: auto; }
+  footer .signature:before { width: 9px; margin-right: 4px; }
+}
